@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  django:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - ./compose/production/django/production.env
+    volumes:
+      - eq_static_volume:/home/app/static
+      - eq_media_volume:/home/app/media
+    stdin_open: true
+  db:
+    restart: always
+    image: "postgres:13.4-alpine"
+    environment:
+      - POSTGRES_DB=db_develop
+      - POSTGRES_USER=eq_production
+      - POSTGRES_PASSWORD=IgAM@VLzfKO#
+    stdin_open: true
+    volumes:
+      - eq_postgres_volume:/var/lib/mysql
+  nginx:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - ./compose/production/nginx/letsencrypt:/etc/letsencrypt
+      - eq_static_volume:/home/app/static
+      - eq_media_volume:/home/app/media
+    depends_on:
+      - django
+volumes:
+  eq_postgres_volume:
+  eq_static_volume:
+  eq_media_volume:

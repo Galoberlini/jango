@@ -1,0 +1,7 @@
+-r base.txt
+
+ipdb
+coverage==5.5
+eq-dj-test-back
+django-debug-toolbar==3.2.2
+django-extensions==3.1.3

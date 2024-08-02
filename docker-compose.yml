@@ -1,0 +1,49 @@
+version: '3'
+
+services:  
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - ./compose/local/django/develop.env
+    volumes:
+      - ./induction_back-app:/home/app/web
+      - eq_static_volume:/home/app/static
+      - eq_media_volume:/home/app/media
+    ports:
+      - "9000:9000"
+    stdin_open: true
+  db:
+    image: "postgres:13.4-alpine"
+    build:
+      context: .
+      dockerfile: ./compose/local/db/Dockerfile
+    environment:
+      - POSTGRES_DB=db_develop
+      - POSTGRES_USER=equality
+      - POSTGRES_PASSWORD=desarrollo
+    stdin_open: true
+    ports:
+      - "9001:5432"
+    volumes:
+      - eq_postgres_volume:/var/lib/mysql
+      - ./induction_back-sql/:/home/app/
+  nginx:    
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    ports:
+      - 9002:80
+    volumes:
+      - eq_static_volume:/home/app/static
+      - eq_media_volume:/home/app/media
+    depends_on:
+      - django
+
+volumes:
+  eq_postgres_volume:
+  eq_static_volume:
+  eq_media_volume:

@@ -1,0 +1,13 @@
+Django==3.2.13
+django-filter==2.4.0
+djangorestframework==3.12.4
+django-simple-history
+Markdown==3.3.4
+Pillow==8.2.0
+psycopg2-binary==2.8.6
+djangorestframework-simplejwt==4.7.1
+django-cors-headers==3.7.0
+django-material-admin==1.8.5
+unipath
+colorlog
+python-dateutil

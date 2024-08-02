@@ -1,0 +1,1 @@
+google-chrome induction_back-app/htmlcov/index.html
