@@ -12,13 +12,15 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',  # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html    
     'corsheaders',  # https://pypi.org/project/django-cors-headers/
     'simple_history',  # https://django-simple-history.readthedocs.io/en/latest/quick_start.html
+    'drf_yasg'
 ]
 
 LOCAL_APPS = [
     # "equality_proyect.users.apps.UsersConfig",
     # Your stuff: custom apps go here
     "apps.utils",
-    "apps.patients"
+    "apps.patients",
+    "apps.api",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
